@@ -1,15 +1,15 @@
 // Load non-blocking PostgreSQL client (without initialisation options).
-const pgp = require("pg-promise")();
+const pgp = require('pg-promise')();
 
 // Create a new database instance from the provided connection string.
 const db = pgp(process.env.DATABASE_URL);
 
 // Create a new Express application.
-const express = require("express");
+const express = require('express');
 const app = express();
 
 // Bind the app to middleware for parsing HTTP request body to JSON.
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 // Generic error handler used by all endpoints.
@@ -24,8 +24,8 @@ function handleError(res, message, error, code) {
  * Responds with the message selected from the database.
  * Used to check the connection.
  */
-app.get("/api/ping", (req, res) => {
-  db.one("SELECT $1 AS value", "pong")
+app.get('/api/ping', (req, res) => {
+  db.one('SELECT $1 AS value', 'pong')
     .then((data) => res.status(200).send({ response: data.value }))
     .catch((error) =>
       handleError(res, "can't select from database", error, 500)
@@ -75,5 +75,5 @@ app.get("/api/ping", (req, res) => {
 // Start the server.
 const server = app.listen(process.env.PORT || 8080, function () {
   const port = server.address().port;
-  console.log("Server listening on port", port);
+  console.log('Server listening on port', port);
 });
