@@ -12,27 +12,56 @@ const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
-// Generic error handler used by all endpoints.
-function handleError(res, message, error, code) {
+/**
+ * Generic error handler for all endpoints.
+ *
+ * Log the error to the console with the message,
+ * then respond with the message and the status code
+ * (if present, otherwise default to `500`).
+ */
+function handleError(res: any, message: string, error: any, code: number) {
   console.error(message, error);
   res.status(code || 500).json({ message });
 }
 
+function selectUsers() {
+  return db.any('SELECT user_id AS userID FROM users');
+}
+
 /**
- * The `GET /api/ping` endpoint.
+ * The `GET /api/users` endpoint.
  *
- * Responds with the message selected from the database.
- * Used to check the connection.
+ * Responds with the list of all users.
  */
-app.get('/api/ping', (req, res) => {
-  db.one('SELECT $1 AS value', 'pong')
-    .then((data) => res.status(200).send({ response: data.value }))
+app.get('/api/users', (req, res) => {
+  selectUsers()
+    .then((data) => res.status(200).json({ users: data.users }))
     .catch((error) =>
-      handleError(res, "can't select from database", error, 500)
+      handleError(res, 'failed to select all users', error, 500)
     );
 });
 
-// var crypto = require("crypto");
+// var crypt = require('crypto');
+
+/** Generate a random string 40 chars in length. */
+// function randomString(): string {
+//   return crypt.randomBytes(20).toString('hex');
+// }
+
+// async function userExists(userID: string): Promise<void> {
+//   return db.one('SELECT * FROM users WHERE user_id = $1', userID);
+// }
+
+// async function insertUser(
+//   userID: string,
+//   email: string,
+//   createdAt: Date
+// ): Promise<void> {
+//   return db.none(
+//     'INSERT INTO users (user_id, email, created_at) VALUES ($1, $2, $3)',
+//     [userID, email, createdAt]
+//   );
+// }
 
 /**
  * The `POST /api/users` endpoint.
@@ -41,33 +70,32 @@ app.get('/api/ping', (req, res) => {
  * Sets the date of creation and a random ID.
  * Responds with the newly created user.
  */
-// app.post("/api/users", (req, res) => {
+// app.post('/api/users', (req, res) => {
 //   const newUser = req.body;
 
-//   // Check that the email field is present.
-//   if (!req.body.email) {
-//     handleError(res, "The `email` field is required", 400);
+//   // Check the email field is present.
+//   if (!newUser.email) {
+//     handleError(res, 'missing required field `email`', null, 400);
 //   } else {
-//     // Generate a candidate for the user ID.
-//     var maybeID = crypto.randomBytes(20).toString("hex");
-
-//     // Check if the ID is unique.
-//     db.none("SELECT * FROM users WHERE user_id = $1", maybeID)
+//     const email = newUser.email;
+//     var userID = randomString();
+//     userExists(userID)
 //       .then(() => {
-//         db.one(
-//           "INSERT INTO users (user_id, email, created_at) VALUES ($1, $2, $3) RETURNING user_id",
-//           [maybeID, email, new Date()]
-//         )
-//           .then((data) => res.status(201).send({ userID: data }))
-//           .catch((error) => handleError(res, "error creating user", 500));
+//         // Regenerate the user ID then create the user.
+//         userID = randomString();
+//         insertUser(userID, email, new Date())
+//           .then(() => res.status(201).send({ userID }))
+//           .catch((error) =>
+//             handleError(res, 'user creation failed', error, 500)
+//           );
 //       })
-//       .catch((error) => {
-//         console.log("Generated a non-unique ID, retrying");
-//         maybeID = crypto.randomBytes(20).toString("hex");
-//         db.one(
-//           "INSERT INTO users (user_id, email, created_at) VALUES ($1, $2, $3) RETURNING user_id",
-//           [maybeID, email, new Date()]
-//         ).then((data) => res.status(201).send({ userID: data }));
+//       .catch(() => {
+//         // No user with this ID exists, so create the user.
+//         insertUser(userID, email, new Date())
+//           .then(() => res.status(201).send({ userID }))
+//           .catch((error) =>
+//             handleError(res, 'user creation failed', error, 500)
+//           );
 //       });
 //   }
 // });
