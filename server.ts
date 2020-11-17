@@ -173,6 +173,8 @@ app.post('/api/users', (req, res) => {
   }
 });
 
+// TODO: serve angular files
+
 // Start the server.
 const server = app.listen(process.env.PORT || 8080, function () {
   const port = server.address().port;
