@@ -8,24 +8,40 @@ const db = pgp(process.env.DATABASE_URL);
 const express = require('express');
 const app = express();
 
-// Bind the app to middleware for parsing HTTP request body to JSON.
-const bodyParser = require('body-parser');
-app.use(bodyParser.json());
-
 /**
  * Generic error handler for all endpoints.
  *
- * Log the error to the console with the message,
- * then respond with the message and the status code
- * (if present, otherwise default to `500`).
+ * Log the error to the console with the message
+ * then respond with the message and the status code, if present;
+ * otherwise default to `500`.
  */
 function handleError(res: any, message: string, error: any, code: number) {
   console.error(message, error);
   res.status(code || 500).json({ message });
 }
 
+// Bind the app to middleware for parsing HTTP request body to JSON.
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+
+/**
+ * Select all users.
+ *
+ * Return every column apart from `email` which may be identifiable.
+ */
 function selectUsers() {
-  return db.any('SELECT user_id AS userID FROM users');
+  const query = `SELECT 
+    user_id AS userID,
+    created_at AS createdAt,
+    ethnicity AS ethnicity,
+    gender AS gender,
+    age_years AS ageInYears,
+    nationality AS nationality,
+    education_level AS educationLevel,
+    home_country AS homeCountry,
+    home_postcode AS homePostcode
+    FROM users`;
+  return db.any(query);
 }
 
 /**
@@ -38,6 +54,41 @@ app.get('/api/users', (req, res) => {
     .then((data) => res.status(200).json({ users: data.users }))
     .catch((error) =>
       handleError(res, 'failed to select all users', error, 500)
+    );
+});
+
+/**
+ * Select a user by ID.
+ *
+ * Return every column apart from `email` which may be identifiable.
+ */
+function selectUser(userID: string) {
+  const query = `SELECT 
+    user_id AS userID,
+    created_at AS createdAt,
+    ethnicity AS ethnicity,
+    gender AS gender,
+    age_years AS ageInYears,
+    nationality AS nationality,
+    education_level AS educationLevel,
+    home_country AS homeCountry,
+    home_postcode AS homePostcode
+    FROM users
+    WHERE user_id = $1`;
+  return db.one(query, userID);
+}
+
+/**
+ * The `GET /api/users/:userID` endpoint.
+ *
+ * Responds with the user corresponding to the ID, if they exist.
+ */
+app.get('/api/users/:userID', (req, res) => {
+  const userID = req.params.userID;
+  selectUser(userID)
+    .then((data) => res.status(200).json({ user: data }))
+    .catch((error) =>
+      handleError(res, `failed to select user with ID ${userID}`, error, 400)
     );
 });
 
