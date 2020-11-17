@@ -12,8 +12,19 @@ db.one("SELECT $1 AS value", 123)
   });
 
 // Create a new Express application.
-var express = require("express");
-var bodyParser = require("body-parser");
+import express from "express";
+import bodyParser from "body-parser";
 
-var app = express();
+const app = express();
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+const port = process.env.PORT || 3000;
+
+app.get("/ping", (req, res) =>
+  res.status(200).send({
+    message: "pong",
+  })
+);
+
+app.listen(port, () => console.log(`Server is running on PORT ${port}`));
