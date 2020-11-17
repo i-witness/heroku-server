@@ -1,7 +1,6 @@
 {
   "name": "heroku",
   "version": "0.0.0",
-  "description": "Technology for fair and accountable policing",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
