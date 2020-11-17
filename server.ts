@@ -1,3 +1,10 @@
+var crypt = require('crypto');
+
+/** Generate a random string 40 chars in length. */
+function randomString(): string {
+  return crypt.randomBytes(20).toString('hex');
+}
+
 // Load non-blocking PostgreSQL client (without initialisation options).
 const pgp = require('pg-promise')();
 
@@ -51,7 +58,7 @@ function selectUsers() {
  */
 app.get('/api/users', (req, res) => {
   selectUsers()
-    .then((data) => res.status(200).json({ users: data.users }))
+    .then((data) => res.status(200).json({ users: data }))
     .catch((error) =>
       handleError(res, 'failed to select all users', error, 500)
     );
@@ -92,64 +99,79 @@ app.get('/api/users/:userID', (req, res) => {
     );
 });
 
-// var crypt = require('crypto');
-
-/** Generate a random string 40 chars in length. */
-// function randomString(): string {
-//   return crypt.randomBytes(20).toString('hex');
-// }
-
-// async function userExists(userID: string): Promise<void> {
-//   return db.one('SELECT * FROM users WHERE user_id = $1', userID);
-// }
-
-// async function insertUser(
-//   userID: string,
-//   email: string,
-//   createdAt: Date
-// ): Promise<void> {
-//   return db.none(
-//     'INSERT INTO users (user_id, email, created_at) VALUES ($1, $2, $3)',
-//     [userID, email, createdAt]
-//   );
-// }
+/**
+ * Inserts a user.
+ */
+function insertUser(
+  userID,
+  email,
+  createdAt,
+  ethnicity,
+  gender,
+  ageInYears,
+  nationality,
+  educationLevel,
+  homeCountry,
+  homePostcode
+) {
+  const query = `INSERT INTO users (
+    user_id,
+    email,
+    created_at,
+    ethnicity,
+    gender,
+    age_years,
+    nationality,
+    education_level,
+    home_country,
+    home_postcode
+  ) VALUES (
+    $1, $2, $3, $4, $5, $6, $7, $8, $9, $10
+  )`;
+  return db.none(query, [
+    userID,
+    email,
+    createdAt,
+    ethnicity,
+    gender,
+    ageInYears,
+    nationality,
+    educationLevel,
+    homeCountry,
+    homePostcode,
+  ]);
+}
 
 /**
  * The `POST /api/users` endpoint.
  *
- * Creates a new user from an email address.
- * Sets the date of creation and a random ID.
- * Responds with the newly created user.
+ * Creates a new user with a random ID, then
+ * responds with the new ID.
  */
-// app.post('/api/users', (req, res) => {
-//   const newUser = req.body;
+app.post('/api/users', (req, res) => {
+  const newUser = req.body;
 
-//   // Check the email field is present.
-//   if (!newUser.email) {
-//     handleError(res, 'missing required field `email`', null, 400);
-//   } else {
-//     const email = newUser.email;
-//     var userID = randomString();
-//     userExists(userID)
-//       .then(() => {
-//         // Regenerate the user ID then create the user.
-//         userID = randomString();
-//         insertUser(userID, email, new Date())
-//           .then(() => res.status(201).send({ userID }))
-//           .catch((error) =>
-//             handleError(res, 'user creation failed', error, 500)
-//           );
-//       })
-//       .catch(() => {
-//         // No user with this ID exists, so create the user.
-//         insertUser(userID, email, new Date())
-//           .then(() => res.status(201).send({ userID }))
-//           .catch((error) =>
-//             handleError(res, 'user creation failed', error, 500)
-//           );
-//       });
-//   }
-// });
+  // Check the email field is present (all other fields are nullable).
+  if (!newUser.email) {
+    handleError(res, 'missing required field `email`', null, 400);
+  } else {
+    const userID = randomString();
+    insertUser(
+      userID,
+      newUser.email,
+      new Date(),
+      newUser.ethnicity,
+      newUser.gender,
+      newUser.ageInYears,
+      newUser.nationality,
+      newUser.educationLevel,
+      newUser.homeCountry,
+      newUser.homePostcode
+    )
+      .then(() => res.status(201).send({ userID }))
+      .catch((error) => handleError(res, 'failed to insert user', error, 500));
+  }
+});
 
 // Start the server.
 const server = app.listen(process.env.PORT || 8080, function () {
