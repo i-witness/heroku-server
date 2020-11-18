@@ -11,7 +11,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent, UserListComponent, UserDetailComponent],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpModule, NgbModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpModule,
+    NgbModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

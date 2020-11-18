@@ -115,9 +115,9 @@ this command must be re-run whenever Angular files are changed in order to serve
 
 Run `npm run start` to start serving both the frontend and the API locally.
 
-### Lint and fix
+### Format code
 
-Run `npm run lint --fix`.
+Run `npm run prettier` to format all files with Prettier, except those defined in `.prettierignore`.
 
 ### Unit test
 
