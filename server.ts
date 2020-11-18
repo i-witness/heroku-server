@@ -1,3 +1,5 @@
+declare var require: any;
+
 var crypt = require('crypto');
 
 /** Generate a random string 40 chars in length. */
