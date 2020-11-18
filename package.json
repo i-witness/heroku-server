@@ -3,12 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ts-node server.ts",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dev": "nodemon server.ts"
+    "dev": "nodemon server.ts",
+    "postinstall": "ng build --output-path dist"
   },
   "private": true,
   "dependencies": {
@@ -16,7 +17,10 @@
     "@angular/common": "~11.0.0",
     "@angular/compiler": "~11.0.0",
     "@angular/core": "~11.0.0",
+    "@angular/cli": "~11.0.1",
+    "@angular/compiler-cli": "~11.0.0",
     "@angular/forms": "~11.0.0",
+    "@angular/http": "^7.2.16",
     "@angular/platform-browser": "~11.0.0",
     "@angular/platform-browser-dynamic": "~11.0.0",
     "@angular/router": "~11.0.0",
@@ -30,8 +34,6 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1100.1",
-    "@angular/cli": "~11.0.1",
-    "@angular/compiler-cli": "~11.0.0",
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
     "@babel/node": "^7.12.6",

@@ -31,6 +31,10 @@ function handleError(res: any, message: string, error: any, code: number) {
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
+// Create link to Angular build directory
+var distDir = __dirname + '/dist/';
+app.use(express.static(distDir));
+
 /**
  * Select all users.
  *
