@@ -1,0 +1,14 @@
+{
+  "name": "iwitness-app",
+  "description": "Website, API & database for the iWitness project",
+  "keywords": ["Node.js", "Angular", "Postgres", "Express"],
+  "repository": "https://github.com/i-witness/heroku-server",
+  "success_url": "/",
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "addons": ["pg"]
+}
