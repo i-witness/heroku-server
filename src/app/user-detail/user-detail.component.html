@@ -1,0 +1,26 @@
+<div *ngIf="user" class="row">
+  <div class="col-md-12">
+    <h2 *ngIf="user.userid">User details</h2>
+    <h2 *ngIf="!user.userid">Create new user</h2>
+  </div>
+</div>
+<div *ngIf="user" class="row">
+  <form class="col-md-12">
+    <div class="form-group">
+      <label for="user-email">Email</label>
+      <input
+        class="form-control"
+        name="user-email"
+        [(ngModel)]="user.email"
+        placeholder="example@example.com"
+      />
+    </div>
+    <!-- <button
+      class="btn btn-primary"
+      *ngIf="!contact._id"
+      (click)="createContact(contact)"
+    >
+      Create
+    </button> -->
+  </form>
+</div>
