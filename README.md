@@ -114,3 +114,11 @@ this command must be re-run whenever Angular files are changed in order to serve
 ### Run the server locally
 
 Run `npm run start` to start serving both the frontend and the API locally.
+
+### Lint and fix
+
+Run `npm run lint --fix`.
+
+### Unit test
+
+Run `npm run test`.
