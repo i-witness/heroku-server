@@ -25,4 +25,4 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci # install project with a clean slate
       - run: npm run build --if-present
-      - run: npm run test
+      - run: npm run test:ci
