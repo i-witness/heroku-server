@@ -102,23 +102,26 @@ The app can be opened from the CLI by running `heroku open`.
 
 ## Useful commands
 
-### Install dependencies (then build the Angular frontend)
+### Install dependencies then build the frontend
 
 Run `npm install`; the Angular frontend is build using a `postinstall` hook.
 
-### Build the Angular frontend
+### Serve the frontend (without backend)
 
-Run `ng build --output-path dist`; note that since the frontend is served as static files,
-this command must be re-run whenever Angular files are changed in order to serve the latest version.
+Run `ng serve` to serve the frontend at `localhost:4200` and watch for changes.
+This does not run the backend, so the API will not be available.
 
-### Run the server locally
+### Serve the frontend with the backend API
 
-Run `npm run start` to start serving both the frontend and the API locally.
+Run `npm run build` to build the frontend as static files in `dist/`,
+then run `npm run start` to start the backend which serves the API and the frontend,
+both at `localhost:8080`.
+This does not watch for changes so the frontend must be manually rebuilt after changes.
 
 ### Format code
 
 Run `npm run prettier` to format all files with Prettier, except those defined in `.prettierignore`.
 
-### Unit test
+### Unit test _TODO: GET THIS WORKING WITH FIREFOX_
 
 Run `npm run test`.

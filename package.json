@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ts-node server.ts",
-    "build": "ng build",
+    "build": "ng build --output-path dist",
     "test": "ng test",
     "prettier": "npx prettier --write .",
     "postinstall": "ng build --output-path dist"
