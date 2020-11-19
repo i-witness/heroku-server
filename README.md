@@ -65,7 +65,7 @@ Each time a user launches the shortcut, record:
 - Allow the website to create user demographic records.
 - Allow the iOS shortcut to create use metric records.
 
-## Source-code structure
+## Project structure
 
 - `app.json` is a manifest format for describing web apps; itt declares environment variables, add-ons, and other information required by Heroku.
 - `server.js` contains all server-side (backend) code used to implement the REST API; written with Node, using the Express framework and the Postgres driver.
@@ -100,28 +100,33 @@ When deployed on Heroku, this application uses the Postgres add-on.
 Deploy simply by pushing changes to the remote git repo.
 The app can be opened from the CLI by running `heroku open`.
 
-## Useful commands
+## npm scripts
 
-### Install dependencies then build the frontend
+### build:dist
 
-Run `npm install`; the Angular frontend is build using a `postinstall` hook.
+Build the frontend as static files to `dist/` where they are served by the backend.  
+Runs automatically after `npm install` for deployment by Heroku.
 
-### Serve the frontend (without backend)
+### start:frontend
 
-Run `ng serve` to serve the frontend at `localhost:4200` and watch for changes.
-This does not run the backend, so the API will not be available.
+Serve _only_ the frontend at `localhost:4200`, with hot-reloading when code is changed.  
+Useful for frontend development when the backend is not required.
 
-### Serve the frontend with the backend API
+### start
 
-Run `npm run build` to build the frontend as static files in `dist/`,
-then run `npm run start` to start the backend which serves the API and the frontend,
-both at `localhost:8080`.
-This does not watch for changes so the frontend must be manually rebuilt after changes.
+Start the backend at `localhost:8080` serving both the API endpoints and the frontend.  
+Can be run locally for development and also by Heroku for production.
 
-### Format code
+### test:chromium
 
-Run `npm run prettier` to format all files with Prettier, except those defined in `.prettierignore`.
+Open a Chromium browser, run unit tests and display the results.  
+Watches for changes, re-running tests each time.
 
-### Unit test _TODO: GET THIS WORKING WITH FIREFOX_
+### test:ci
 
-Run `npm run test`.
+Run unit tests without opening a browser, while using Chrome in the background.
+Used by GitHub for continuous integration (CI).
+
+### prettier:write
+
+Format all files in the project.

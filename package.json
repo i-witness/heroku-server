@@ -3,12 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "build:dist": "ng build --output-path dist",
+    "postinstall": "npm run build:dist",
+    "start:frontend": "ng serve",
     "start": "ts-node server.ts",
-    "build": "ng build --output-path dist",
-    "test": "ng test",
+    "test:chromium": "ng test --browsers=Chromium",
     "test:ci": "ng test --watch=false --browsers=ChromeHeadlessCustom",
-    "prettier": "npx prettier --write .",
-    "postinstall": "ng build --output-path dist"
+    "prettier:write": "npx prettier --write ."
   },
   "private": true,
   "dependencies": {
