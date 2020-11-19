@@ -1,1 +1,23 @@
-<router-outlet></router-outlet>
+<header>
+  <ul ngbNav #nav="ngbNav" [(activeId)]="activeNav" class="nav-tabs">
+    <li ngbNavItem>
+      <a ngbNavLink routerLink="/home">iWitness</a>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink routerLink="/data">Our database</a>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink routerLink="/signup">Sign up</a>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink routerLink="/support">Support</a>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink routerLink="/terms">Terms of use</a>
+    </li>
+  </ul>
+</header>
+<div class="container-fluid">
+  <router-outlet></router-outlet>
+</div>
+<footer></footer>
