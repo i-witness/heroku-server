@@ -1,132 +1,86 @@
-# iWitness @ Heroku
+# Server
 
-A single application which is comprised of:
+Hosted at https://iwitness-app.herokuapp.com/ using the [Heroku](https://www.heroku.com/) platform.
 
-- a website for the project, written with Angular;
-- a Postgres database recording user demographics and usage metrics, and;
-- a REST API with which database records can be read and updated.
+## Overview of the iWitness project
 
-This application uses the Node framework in the backend (using TypeScript, rather than JavaScript).
-Node serves the Angular frontend as static files, which are built in the `postinstall` hook,
-as well as the REST API endpoints.
+### Goals
 
-It can be deployed both locally and also on the [Heroku](https://www.heroku.com/solutions) platform.
+- Develop mobile applications to support members of the public through interaction with law enforcement officers.
+- Collect and analyse data on the interaction between different demographics and law enforcement.
 
-## Design goals
+### Products
 
-### Website
+#### Shortcut for iOS
 
-#### Provide essential information on the project
+- A shortcut is essentially a simple app for iPhone or the Apple Watch, which can be launched from a home screen shortcut or voice-recognition trigger.
+- Create a shortcut which offers functionality useful during interaction with law enforcement officers:
+  - send SOS messages to specific contacts with the user's current location;
+  - record video with the option to quickly upload to cloud storage or share on social media, and;
+  - provide contact details for relevant law firms, solicitors and legal aid organisations.
+- Each time the shortcut is activated, a message is sent to our server with:
+  - the date and time on the user's phone;
+  - the user's current location, and;
+  - a unique identifier for the user, consisting of a random string of charechters.
 
-- Mission statement.
-- Privacy policy.
-- FAQ.
-- Contact & social media links.
-- Etc.
+#### Server
 
-#### Instruct users on setup & use of the iWitness shortcut for iOS
+- Provide a website for the project containing all useful information (mission statement, contact details, privacy policy, etc).
+- Offer free download of the iOS Shortcut, after collection of (anonymous) demographic data from the user;
+- Guide the user through installation of the shortcut, configuration of the user ID, and first activation.
+- Display an interactive map showing when and where the shortcut has been used, along with the (anonymous) demographic data of each user.
 
-- Download link for shortcut (hosted on iCloud).
-- Walk through installation process; explaining what the shortcut does and which permissions are needed.
-- Guide the user through their first use of the shortcut.
+## Technical description
 
-#### Gather demographic information on the user
+This server consists of:
 
-This is done via a form which must be submitted before a download link can be obtained.
-Submitting this form returns a randomly generated user ID, which is used for configuration of the shortcut.
+- a Node.js backend exposing a REST API written with the Express library;
+- an Angular frontend (i.e. the website), and;
+- a Postgres database.
 
-### Database
+### Prerequisites
 
-#### Store data collected on the user through the website
+Before development, you need to:
 
-Data gathered will include the following non-identifying demographics:
+- clone this repository to your machine;
+- install Postgres on your machine, create yourself a user and database, and start the server, and;
+- set the `DATABASE_URL` environment variable to reference your local database by running `export DATABASE_URL=postgres://$(whoami)@localhost:5432/$(whoami)?sslmode=disable` from the terminal.
 
-- ethnicity;
-- nationality;
-- gender;
-- age range;
-- educational attainment, and;
-- home country & postcode.
-  The email address provided by the user along with this data will also be stored;
-  this will be treated as potentially identifying information and therefore not be publicly accessible.
+### Build pipeline
 
-#### Store metrics gathered through use of the iOS shortcut
+1. Push changes to GitHub.
+2. GitHub runs unit tests.
+3. If successful, Heroku will deploy the server.
 
-Each time a user launches the shortcut, record:
+### Useful commands
 
-- the date and time;
-- the location provided by GPS, and;
-- the randomly-generated, unique user ID.
+Execute using `npm run some:command` from the terminal.
 
-### API
+#### `build:dist`
 
-#### Provide access to the database
+Build the frontend static files to `dist/`, where they can be served by the backend.  
+Runs automatically after `npm install`, in order to deploy using Heroku.
 
-- Allow the website to create user demographic records.
-- Allow the iOS shortcut to create use metric records.
+#### `start:frontend`
 
-## Project structure
-
-- `app.json` is a manifest format for describing web apps; itt declares environment variables, add-ons, and other information required by Heroku.
-- `server.js` contains all server-side (backend) code used to implement the REST API; written with Node, using the Express framework and the Postgres driver.
-- `src/` contains all client-side (frontend) code used by Angular.
-
-## Setup guide
-
-### Local deployment
-
-When deployed locally, this application can be configured to use either a local Postgres installation or the Postgres add-on used by Heroku.
-This is determined by the value of the `DATABASE_URL`.
-
-#### Local database
-
-Once Postgres is setup and you can connect, set the environment variable with
-
-```
-export DATABASE_URL=postgres://$(whoami)@localhost:5432/$(whoami)?sslmode=disable
-```
-
-See [this guide](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup) for more info.
-
-#### Add-on database
-
-Export the URI given in the Heroku dashboard, under the settings for the addon, as `DATABASE_URL`.
-The `psql` terminal can be launched against this database to run queries and execute commands,
-by running `heroku pg:psql`.
-
-### Live deployment (Heroku)
-
-When deployed on Heroku, this application uses the Postgres add-on.
-Deploy simply by pushing changes to the remote git repo.
-The app can be opened from the CLI by running `heroku open`.
-
-## npm scripts
-
-### build:dist
-
-Build the frontend as static files to `dist/` where they are served by the backend.  
-Runs automatically after `npm install` for deployment by Heroku.
-
-### start:frontend
-
-Serve _only_ the frontend at `localhost:4200`, with hot-reloading when code is changed.  
+Serve _only_ the frontend at http://localhost:4200, hot-reloading after code changes.  
 Useful for frontend development when the backend is not required.
 
-### start
+####` start`
 
-Start the backend at `localhost:8080` serving both the API endpoints and the frontend.  
-Can be run locally for development and also by Heroku for production.
+Start the backend _and_ frontend at http://localhost:8080 serving both the API endpoints and the frontend.  
+Can be run locally for development or by Heroku for production.
 
-### test:chromium
+#### `test:chromium`
 
 Open a Chromium browser, run unit tests and display the results.  
-Watches for changes, re-running tests each time.
+Tests are re-run after code changes.
 
-### test:ci
+#### `test:ci`
 
 Run unit tests without opening a browser, while using Chrome in the background.
 Used by GitHub for continuous integration (CI).
 
-### prettier:write
+#### `prettier:write`
 
 Format all files in the project.
