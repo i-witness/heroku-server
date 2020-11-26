@@ -1,4 +1,6 @@
-# The iWitness project for fair and accountable policing
+# The iWitness Project
+
+> Developing mobile tech solutions to ensure fair and accountable policing.
 
 Hosted at https://iwitness-app.herokuapp.com/ using the [Heroku](https://www.heroku.com/) platform.  
 See [iCloud](https://www.icloud.com/shortcuts/0265ae8b9bcc4dfd9b5b7ff59f58b212) for the latest under-development verion of the iOS shortcut.
