@@ -1,35 +1,44 @@
-# Server
+# The iWitness project for fair and accountable policing
 
-Hosted at https://iwitness-app.herokuapp.com/ using the [Heroku](https://www.heroku.com/) platform.
+Hosted at https://iwitness-app.herokuapp.com/ using the [Heroku](https://www.heroku.com/) platform.  
+See [iCloud](https://www.icloud.com/shortcuts/0265ae8b9bcc4dfd9b5b7ff59f58b212) for the latest under-development verion of the iOS shortcut.
 
-## Overview of the iWitness project
+## Overview
 
 ### Goals
 
 - Develop mobile applications to support members of the public through interaction with law enforcement officers.
-- Collect and analyse data on the interaction between the public and law enforcement officers, with respect to demographics such as ethnicity, nationality, etc.
+- Collect and analyse data on the interaction between the public and law enforcement officers, with respect to demographics including ethnicity and nationality.
 
 ### Products
 
-#### Shortcut for iOS
+#### iOS Shortcut
 
-- A shortcut is essentially a simple app for iPhone or the Apple Watch, which can be launched from a home screen shortcut or voice control via Siri.
-- Create a shortcut which offers functionality useful during interaction with law enforcement officers:
-  - send SOS messages to specific contacts with the user's current location;
-  - upload the user's location to a publicly-accessible database;
-  - record video with the option to quickly upload to cloud storage or share on social media, and;
-  - provide contact details for relevant law firms, solicitors and legal aid organisations.
-- Each time the shortcut is activated, a message is sent to our server with:
-  - the date and time on the user's phone;
-  - the user's current location, and;
-  - a unique identifier for the user, consisting of a random string of charechters.
+A shortcut is just a simple app for iPhone or the Apple Watch which can be launched from a home screen shortcut or with Siri.  
+When launched a shortcut executes a sequence of commands, with or without further action from the user.  
+We aim to create and distribute a shortcut offering useful functionality to the public during interaciton with law enforcement:
 
-#### Server
+- Send an SOS message with the current location, to specific contacts (via SMS, email, Signal, Telegram, ...) or on social media.
+- Upload the current location along with a unique, anonymous user ID to our publicly accessible server.
+- Record video and audio of interaction with law enforcement officers, which can be uploaded to cloud or social media.
 
-- Provide a website for the project containing all useful information (mission statement, contact details, privacy policy, etc).
-- Offer free download of the iOS Shortcut, after collection of anonymous demographic data from the user;
-- Guide the user through installation of the shortcut, configuration of the user ID and SOS contacts, and first use.
-- Display an interactive map showing when and where the shortcut has been used, along with the anonymous demographic data of each user.
+#### Server (website, database & API)
+
+This repository contains the code for the server.  
+The visible part of this server (referred to as the `frontend`) is the project website providing:
+
+- a mission statement describing the project goals in detail;
+- an FAQ for the website and shortcut;
+- terms of service including a privacy policy;
+- user registration, followed by access to the iOS shortcut;
+- support for installation, configuration and use of the shortcut;
+- an interactive map displaying when & where the shortcut has been used, and;
+- contact details for the project.
+
+The behind-the-scenes parts of the server (referred to as the `backend`) consists of:
+
+- a database holding user details (identifier, email address and demographics) and activity (date, time and location), and;
+- an API allowing communication with the shortcut (reffered to as the `client`).
 
 ## Technical description
 
@@ -49,11 +58,11 @@ Before development, you need to:
 
 ### Build pipeline
 
-1. Push changes to GitHub.
-2. A GitHub CI action runs all unit tests.
-3. The new code will be deployed via Heroku if all tests have succeeded.
+1. The developer pushes changes to GitHub.
+2. The GitHub CI action runs all unit tests.
+3. If all tests have succeeded, Heroku builds and deploys the server.
 
-### Useful commands
+### Useful commands (npm)
 
 Execute using `npm run command-name` from the terminal.
 
@@ -85,3 +94,12 @@ Used by GitHub for continuous integration (CI).
 #### `prettier:write`
 
 Format all files in the project.
+
+### Useful commands (heroku)
+
+The server can be deployed into production from the terminal using the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli).  
+Contact @TrasheRacer for details.
+
+#### TODO
+
+Fill in this section.
