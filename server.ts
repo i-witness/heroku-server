@@ -17,8 +17,9 @@ const db = pgp(process.env.DATABASE_URL);
 const express = require('express');
 const app = express();
 
-// Used to query the database.
+// Used to query and mutate the database.
 const queries = require('./db/queries');
+const mutations = require('./db/mutations');
 
 /**
  * Generic error handler for all endpoints.
@@ -50,7 +51,7 @@ app.use(express.static(distDir));
  * - the date of creation.
  */
 app.get('/api/users', (req, res) => {
-  console.debug('handling GET request to /api/users endpoint');
+  console.debug('handling GET request to /api/users');
   queries
     .userDetails(db)
     .then((data) => {
@@ -64,16 +65,30 @@ app.get('/api/users', (req, res) => {
 });
 
 /**
- * The `POST /api/users/:userID` endpoint.
+ * The `POST /api/users/:userID/activity` endpoint.
+ *
+ * Creates a new activity for the given user, then responds
+ * with `{ success: true }`.
  */
-app.post('/api/users/:userID', (req, res) => {
+app.post('/api/users/:userID/activity', (req, res) => {
+  console.debug('handling POST request to /api/users/:userID/activity');
+
   const userID = req.params.userID;
-  console.debug(
-    'handling POST request to /api/users/ endpoint with user ID:',
-    userID
-  );
-  console.debug('parsed JSON body:', req.body);
-  res.status(200).json({ success: true });
+  console.debug('user ID:', userID);
+
+  const location = req.body.location;
+  console.debug('user location:', location);
+
+  mutations
+    .userActivity(db, userID, location)
+    .then(() => {
+      console.debug('user activity creation succeeded');
+      res.status(201).json({ success: true });
+    })
+    .catch((error) => {
+      console.error('user activity creation failed:', error);
+      res.status(500).json({ error });
+    });
 });
 
 // Start the server.

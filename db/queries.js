@@ -8,3 +8,14 @@ const USER_DETAILS = `
         user_details`;
 
 exports.userDetails = (db) => db.any(USER_DETAILS);
+
+const USER_ACTIVITY = `
+    SELECT 
+        user_id AS "userID",
+        activity_id AS "activityID",
+        active_at AS "activeAt",
+        located_at AS "locatedAt"
+    FROM 
+        user_activity`;
+
+exports.userActivity = (db) => db.any(USER_ACTIVITY);
