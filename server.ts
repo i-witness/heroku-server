@@ -63,6 +63,19 @@ app.get('/api/users', (req, res) => {
     });
 });
 
+/**
+ * The `POST /api/users/:userID` endpoint.
+ */
+app.post('/api/users/:userID', (req, res) => {
+  const userID = req.params.userID;
+  console.debug(
+    'handling POST request to /api/users/ endpoint with user ID:',
+    userID
+  );
+  console.debug('parsed JSON body:', req.body);
+  res.status(200).json({ success: true });
+});
+
 // Start the server.
 const server = app.listen(process.env.PORT || 8080, function () {
   const port = server.address().port;
