@@ -17,6 +17,9 @@ const db = pgp(process.env.DATABASE_URL);
 const express = require('express');
 const app = express();
 
+// Used to query the database.
+const queries = require('./db/queries');
+
 /**
  * Generic error handler for all endpoints.
  *
@@ -38,151 +41,30 @@ var distDir = __dirname + '/dist/';
 app.use(express.static(distDir));
 
 /**
- * Select all users.
- *
- * Return every column apart from `email` which may be identifiable.
- */
-function selectUsers() {
-  const query = `SELECT 
-    user_id AS userID,
-    created_at AS createdAt,
-    ethnicity AS ethnicity,
-    gender AS gender,
-    age_years AS ageInYears,
-    nationality AS nationality,
-    education_level AS educationLevel,
-    home_country AS homeCountry,
-    home_postcode AS homePostcode
-    FROM users`;
-  return db.any(query);
-}
-
-/**
  * The `GET /api/users` endpoint.
  *
- * Responds with the list of all users.
+ * Responds with the list of all users, including:
+ * - user ID;
+ * - email address;
+ * - home country, and;
+ * - the date of creation.
  */
 app.get('/api/users', (req, res) => {
-  selectUsers()
-    .then((data) => res.status(200).json({ users: data }))
-    .catch((error) =>
-      handleError(res, 'failed to select all users', error, 500)
-    );
+  console.debug('handling GET request to /api/users endpoint');
+  queries
+    .userDetails(db)
+    .then((data) => {
+      console.debug('user details query succeeded:', data);
+      res.status(200).json({ users: data });
+    })
+    .catch((error) => {
+      console.error('user details query failed:', error);
+      res.status(500).json({ error });
+    });
 });
-
-/**
- * Select a user by ID.
- *
- * Return every column apart from `email` which may be identifiable.
- */
-function selectUser(userID: string) {
-  const query = `SELECT 
-    user_id AS userID,
-    created_at AS createdAt,
-    ethnicity AS ethnicity,
-    gender AS gender,
-    age_years AS ageInYears,
-    nationality AS nationality,
-    education_level AS educationLevel,
-    home_country AS homeCountry,
-    home_postcode AS homePostcode
-    FROM users
-    WHERE user_id = $1`;
-  return db.one(query, userID);
-}
-
-/**
- * The `GET /api/users/:userID` endpoint.
- *
- * Responds with the user corresponding to the ID, if they exist.
- */
-app.get('/api/users/:userID', (req, res) => {
-  const userID = req.params.userID;
-  selectUser(userID)
-    .then((data) => res.status(200).json({ user: data }))
-    .catch((error) =>
-      handleError(res, `failed to select user with ID ${userID}`, error, 400)
-    );
-});
-
-/**
- * Inserts a user.
- */
-function insertUser(
-  userID,
-  email,
-  createdAt,
-  ethnicity,
-  gender,
-  ageInYears,
-  nationality,
-  educationLevel,
-  homeCountry,
-  homePostcode
-) {
-  const query = `INSERT INTO users (
-    user_id,
-    email,
-    created_at,
-    ethnicity,
-    gender,
-    age_years,
-    nationality,
-    education_level,
-    home_country,
-    home_postcode
-  ) VALUES (
-    $1, $2, $3, $4, $5, $6, $7, $8, $9, $10
-  )`;
-  return db.none(query, [
-    userID,
-    email,
-    createdAt,
-    ethnicity,
-    gender,
-    ageInYears,
-    nationality,
-    educationLevel,
-    homeCountry,
-    homePostcode,
-  ]);
-}
-
-/**
- * The `POST /api/users` endpoint.
- *
- * Creates a new user with a random ID, then
- * responds with the new ID.
- */
-app.post('/api/users', (req, res) => {
-  const newUser = req.body;
-
-  // Check the email field is present (all other fields are nullable).
-  if (!newUser.email) {
-    handleError(res, 'missing required field `email`', null, 400);
-  } else {
-    const userID = randomString();
-    insertUser(
-      userID,
-      newUser.email,
-      new Date(),
-      newUser.ethnicity,
-      newUser.gender,
-      newUser.ageInYears,
-      newUser.nationality,
-      newUser.educationLevel,
-      newUser.homeCountry,
-      newUser.homePostcode
-    )
-      .then(() => res.status(201).send({ userID }))
-      .catch((error) => handleError(res, 'failed to insert user', error, 500));
-  }
-});
-
-// TODO: serve angular files
 
 // Start the server.
 const server = app.listen(process.env.PORT || 8080, function () {
   const port = server.address().port;
-  console.log('Server listening on port', port);
+  console.log('server listening on port:', port);
 });
