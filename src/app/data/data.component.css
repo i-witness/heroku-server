@@ -1,0 +1,12 @@
+div {
+  color: #f4f0a1;
+}
+
+div.row-odd {
+  background-color: #822bff;
+}
+
+div.row-even {
+  background-color: #250126;
+  color: #fff30a;
+}
