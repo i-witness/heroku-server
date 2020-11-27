@@ -6,7 +6,8 @@ See [iCloud](https://www.icloud.com/shortcuts/0265ae8b9bcc4dfd9b5b7ff59f58b212) 
 
 ## Documentation
 
-- See [TODO.md](./docs/TODO.md) for outstanding and completed tasks.
+- See [TODO](./docs/TODO.md) for a list of tasks to be completed.
+- See [SERVER](./docs/SERVER.md) for a technical overview of this repo.
 
 ## Project overview _(non-technical)_
 
