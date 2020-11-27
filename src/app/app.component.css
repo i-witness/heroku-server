@@ -12,8 +12,8 @@ header > div.first {
   font-size: 135%;
 }
 
-ul.nav-tabs {
-  border: none;
+header div.second {
+  padding-left: 85px;
 }
 
 header a {
@@ -24,7 +24,8 @@ header a {
 header a.nav-link {
   background-color: #ffa2bc;
   color: whitesmoke;
-  border: none;
+  border: solid;
+  border-color: rgb(31, 31, 5);
 }
 
 header a.nav-link.active {
