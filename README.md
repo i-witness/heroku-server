@@ -1,9 +1,12 @@
-# The iWitness Project
+# README
 
-> Developing solutions using mobile tech, to ensure fair and accountable policing.
+This repository contains both code (for the server) and documentation (for the entire project) for iWitness.  
+Visit https://iwitness-app.herokuapp.com/ to access the server & website.  
+See [iCloud](https://www.icloud.com/shortcuts/0265ae8b9bcc4dfd9b5b7ff59f58b212) for the under-development verion of the iOS shortcut.
 
-Hosted at https://iwitness-app.herokuapp.com/ using the [Heroku](https://www.heroku.com/) platform.  
-See [iCloud](https://www.icloud.com/shortcuts/0265ae8b9bcc4dfd9b5b7ff59f58b212) for the under-development verion of the iOS shortcut (may not be the most recent).
+## Documentation
+
+- See [TODO.md](./docs/TODO.md) for outstanding and completed tasks.
 
 ## Project overview _(non-technical)_
 
@@ -101,18 +104,3 @@ Format all files in the project.
 
 The server can be deployed into production from the terminal using the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli).  
 Contact @TrasheRacer for details.
-
-### TODO
-
-#### Create `docs/` dir
-
-- Describe repo structure in `docs/STRUCTURE.md`.
-- Split this file into project/setup/..., each linked to from here.
-
-#### Describe additional setup
-
-For example, VS Code, Angular CLI, creation of DB tables, etc.
-
-#### Clean up code
-
-Including package.json.
