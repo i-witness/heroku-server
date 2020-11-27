@@ -1,3 +1,7 @@
+div {
+  color: #f4f0a1;
+}
+
 div.row-odd {
   background-color: #822bff;
 }
@@ -7,5 +11,5 @@ div.row-even {
 }
 
 div.pad-top {
-  padding-top: 65px;
+  padding-top: 15vh;
 }

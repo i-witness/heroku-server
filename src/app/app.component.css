@@ -1,10 +1,48 @@
+/* TODO: refactor or maybe replace with SASS, SCSS or LESS? */
+
 header {
   height: 35vh;
   background-color: #ffa2bc;
 }
 
+header > div.first {
+  height: 34vh;
+  padding-left: 85px;
+  padding-top: 20px;
+  font-size: 135%;
+}
+
+ul.nav-tabs {
+  border: none;
+}
+
+header a {
+  font-size: 120%;
+  font-weight: bold;
+}
+
+header a.nav-link {
+  background-color: #ffa2bc;
+  color: whitesmoke;
+  border: none;
+}
+
+header a.nav-link.active {
+  background-color: #822bff;
+}
+
 footer {
   height: 35vh;
   background-color: #ce3d66;
+}
+
+footer > div.first {
+  padding-top: 25px;
   text-align: center;
+}
+
+footer > div.second {
+  padding-left: 35px;
+  font-size: 135%;
+  color: whitesmoke;
 }

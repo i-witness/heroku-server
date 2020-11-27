@@ -1,18 +1,47 @@
 <header>
-  <ul ngbNav #nav="ngbNav" [(activeId)]="activeNav" class="nav-tabs">
-    <li ngbNavItem>
-      <a ngbNavLink routerLink="/home">Home</a>
-    </li>
-    <li ngbNavItem>
-      <a ngbNavLink routerLink="/data">Data</a>
-    </li>
-  </ul>
+  <div class="first">
+    <h2>TODO</h2>
+    Create remaining routes in a similar manner to /home and /data:
+    <ul>
+      <li>Support</li>
+      <li>FAQ</li>
+      <li>Contact</li>
+      <li>Terms (of use)</li>
+      <li>Registration</li>
+    </ul>
+  </div>
+
+  <div class="second">
+    <ul ngbNav #nav="ngbNav" [(activeId)]="activeNav" class="nav-tabs">
+      <li ngbNavItem>
+        <a ngbNavLink routerLink="/home">Home</a>
+      </li>
+      <li ngbNavItem>
+        <a ngbNavLink routerLink="/data">Data</a>
+      </li>
+    </ul>
+  </div>
 </header>
 
 <router-outlet></router-outlet>
 
 <footer>
-  <a href="https://github.com/i-witness/heroku-server" class="btn btn-github">
-    GitHub
-  </a>
+  <div class="first">
+    <a
+      href="https://github.com/i-witness/heroku-server"
+      class="btn btn-primary"
+    >
+      GitHub
+    </a>
+  </div>
+  <div class="second">
+    <h2>TODO</h2>
+    Add other external links like GitHub:
+    <ul>
+      <li>Email</li>
+      <li>Phone?</li>
+      <li>Twitter</li>
+      <li>Other social media...</li>
+    </ul>
+  </div>
 </footer>
