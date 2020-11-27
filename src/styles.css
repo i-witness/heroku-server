@@ -1,4 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files. */
+
 div.row {
+  /* Set every row in bootstrap to fill the screen vertically for a nice layout. */
   height: 100vh;
+
+  /* Increase the font size everywhere for easy reading. */
+  font-size: 135%;
 }

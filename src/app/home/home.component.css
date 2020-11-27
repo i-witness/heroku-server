@@ -1,0 +1,11 @@
+div.row-odd {
+  background-color: #822bff;
+}
+
+div.row-even {
+  background-color: #69336b;
+}
+
+div.pad-top {
+  padding-top: 65px;
+}
