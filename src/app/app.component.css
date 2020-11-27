@@ -1,9 +1,10 @@
 header {
+  height: 35vh;
   background-color: #ffa2bc;
 }
 
 footer {
+  height: 35vh;
   background-color: #ce3d66;
   text-align: center;
-  height: 35vh;
 }
