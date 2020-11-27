@@ -13,3 +13,7 @@ div.row-even {
 div.pad-top {
   padding-top: 15vh;
 }
+
+a {
+  color: black;
+}

@@ -21,7 +21,7 @@ When launched a shortcut executes a sequence of commands, with or without furthe
 We aim to create and distribute a shortcut offering useful functionality to the public during interaciton with law enforcement:
 
 - Send an SOS message with the current location, to specific contacts (via SMS, email, Signal, Telegram, ...) or on social media.
-- Upload the current location along with a unique, anonymous user ID to our publicly accessible server.
+- Periodically upload the current location to our publicly accessible server for the duration of the interaction, for public display on the website (along with an anonymous user ID).
 - Record video and audio of interaction with law enforcement officers, which can be uploaded to cloud or social media.
 
 #### Server (website, database & API)
