@@ -1,8 +1,9 @@
 # README: _iWitness project_
 
-This repository contains both code (for the server) and documentation (for the entire project) for iWitness.  
-Visit https://iwitness-app.herokuapp.com/ to access the server & website.  
-See [iCloud](https://www.icloud.com/shortcuts/0265ae8b9bcc4dfd9b5b7ff59f58b212) for the under-development verion of the iOS shortcut.
+This repository contains both code (for the server) and documentation (for the entire project).  
+Visit https://iwitness-app.herokuapp.com/ for the server (i.e. website).  
+See [iCloud](https://www.icloud.com/shortcuts/0265ae8b9bcc4dfd9b5b7ff59f58b212) for the current verion of the iOS shortcut.  
+_Note:_ since both the shortcut and server are under constant developent, this shortcut may or may not work properly.
 
 ## Technical documentation
 
@@ -13,14 +14,14 @@ See [iCloud](https://www.icloud.com/shortcuts/0265ae8b9bcc4dfd9b5b7ff59f58b212) 
 ### Goals
 
 - Develop mobile applications to support members of the public through interaction with law enforcement officers.
-- Collect and analyse data on the interaction between the public and law enforcement officers, with respect to demographics including ethnicity and nationality.
+- Collect and analyse data on the interaction between the public and law enforcement, especially with respect to demographics including ethnicity and nationality.
 
 ### Products
 
 #### iOS Shortcut
 
-A shortcut is just a simple app for iPhone or the Apple Watch which can be launched from a home screen shortcut or with Siri.  
-When launched a shortcut executes a sequence of commands, with or without further action from the user.  
+A shortcut is just a simple app for iPhone (or the Apple Watch) which can be launched from a home screen shortcut or with Siri (i.e. voice control).
+When launched, a shortcut executes a sequence of commands, with or without further action from the user.
 We aim to create and distribute a shortcut offering useful functionality to the public during interaciton with law enforcement:
 
 - Send an SOS message with the current location, to specific contacts (via SMS, email, Signal, Telegram, ...) or on social media.
@@ -44,3 +45,14 @@ The behind-the-scenes parts of the server (referred to as the `backend`) consist
 
 - a database holding user details (identifier, email address and demographics) and activity (date, time and location), and;
 - an API allowing communication with the shortcut (reffered to as the `client`).
+
+#### In future...
+
+We hope to bring functionality from the iOS shortcut described above into a _native_ application.  
+Following a successful trial- and data-collection-period using the shortcut, we will begin developement of this app.  
+This will be made available for both iOS (via the official app store and alternatives like AltStore) and also android (via Google Play, F-Droid or direct APK download).  
+In addition to the above, we aim to develop the following extra features (may depend upon specific device):
+
+- full hands-free mode using only voice control for activation and input;
+- provide the user with accurate & automated legal advice, and;
+- support from other users via 'SOS mode' with automatic location sharing.
