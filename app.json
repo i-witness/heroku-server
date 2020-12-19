@@ -1,6 +1,7 @@
 {
   "name": "iwitness-app",
-  "description": "Website, API & database for the iWitness project",
+  "description": "Website for the iWitness project including API & database",
+  "website": "https://iwitness-app.herokuapp.com/",
   "keywords": ["Node.js", "Angular", "Postgres", "Express"],
   "repository": "https://github.com/i-witness/heroku-server",
   "success_url": "/",
