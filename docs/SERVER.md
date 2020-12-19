@@ -6,6 +6,14 @@ This server consists of:
 - an Angular frontend (i.e. the website), and;
 - a Postgres database.
 
+## Design
+
+This (very) rough sketch outlines the interaction between the _client_ (the user's iOS device) and this server,  
+plus interaction with Apple.  
+
+![iWitness design](design.jpeg)
+
+
 ## Prerequisites
 
 Before development, you need to:
