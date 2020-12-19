@@ -1,9 +1,9 @@
-# README: _iWitness project_
+# README
 
 This repository contains both code (for the server) and documentation (for the entire project).  
-Visit https://iwitness-app.herokuapp.com/ for the server (i.e. website).  
+Server is live at https://iwitness-app.herokuapp.com/.  
 See [iCloud](https://www.icloud.com/shortcuts/0265ae8b9bcc4dfd9b5b7ff59f58b212) for the current verion of the iOS shortcut.  
-_Note:_ since both the shortcut and server are under constant developent, this shortcut may or may not work properly.
+_Note:_ this is under development and therefore not yet stable.
 
 ## Technical documentation
 
@@ -13,8 +13,8 @@ _Note:_ since both the shortcut and server are under constant developent, this s
 
 ### Goals
 
-- Develop mobile applications to support members of the public through interaction with law enforcement officers.
-- Collect and analyse data on the interaction between the public and law enforcement, especially with respect to demographics including ethnicity and nationality.
+- Develop mobile applications to support members of the public through interaction with law enforcement officers.  
+- Collect and analyse data on the interaction between the public and law enforcement, especially with respect to demographics including ethnicity and nationality.  
 
 ### Products
 
@@ -22,11 +22,10 @@ _Note:_ since both the shortcut and server are under constant developent, this s
 
 A shortcut is just a simple app for iPhone (or the Apple Watch) which can be launched from a home screen shortcut or with Siri (i.e. voice control).
 When launched, a shortcut executes a sequence of commands, with or without further action from the user.
-We aim to create and distribute a shortcut offering useful functionality to the public during interaciton with law enforcement:
-
-- Send an SOS message with the current location, to specific contacts (via SMS, email, Signal, Telegram, ...) or on social media.
-- Periodically upload the current location to our publicly accessible server for the duration of the interaction, for public display on the website (along with an anonymous user ID).
-- Record video and audio of interaction with law enforcement officers, which can be uploaded to cloud or social media.
+We aim to create and distribute a shortcut offering useful functionality to the public during interaciton with law enforcement:  
+- SOS messaging (via SMS, email, ...);  
+- location streaming to publicly-accessible database, and;   
+- record video while providing tips (via push notification) on best practices for recording police.  
 
 #### Server (website, database & API)
 

@@ -53,7 +53,6 @@ Used by GitHub for continuous integration (CI).
 
 Format all files in the project.
 
-### Useful commands (heroku)
+## Useful commands (heroku)
 
-The server can be deployed into production from the terminal using the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli).  
-Contact @TrasheRacer for details.
+The server can be deployed into production from the terminal using the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli).
