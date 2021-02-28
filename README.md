@@ -1,3 +1,5 @@
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/i-witness/heroku-server)
+
 # README
 
 This repository contains both code (for the server) and documentation (for the entire project).  
